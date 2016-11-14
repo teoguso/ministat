@@ -50,6 +50,64 @@ def cov(f_list1, f_list2):
 
 
 def pcc(f_list1, f_list2):
+    """
+    Computes the Pearson correlation coefficient.
+    :param f_list1:
+    :param f_list2:
+    :return:
+    """
     return cov(f_list1, f_list2) / sqrt(var(f_list1) * var(f_list2))
+
+
+def rank(f_list, unique=False):
+    """
+    Computes the rank of a given list.
+    Parts arbitrarily extracted from stackoverflow.
+    :param f_list:
+    :param unique:
+    :return:
+    """
+    if unique:
+        index = range(1,len(f_list)+1)
+        mydict = dict(zip(f_list, index))
+        return [int(mydict[x]) for x in sorted(mydict.keys())]
+    elif len(f_list) == len(set(f_list)):
+        return rank(f_list, unique=True)
+    else:
+        n = len(f_list)
+        ivec = rank(a, unique=True)
+        svec = [a[irank] for irank in ivec]
+        sumranks = 0
+        dupcount = 0
+        newlist = [0] * n
+        for i in range(n):
+            sumranks += i
+            dupcount += 1
+            if i == n - 1 or svec[i] != svec[i + 1]:
+                averank = sumranks / dupcount + 1
+                for j in range(i - dupcount + 1, i + 1):
+                    newlist[ivec[j]] = int(averank)
+                sumranks = 0
+                dupcount = 0
+        return newlist
+
+
+def srcc(f_list1, f_list2):
+    """
+    Computes the Spearman's rank correlation coefficient.
+    :param f_list1:
+    :param f_list2:
+    :return:
+    """
+    r1, r2 = rank(f_list1), rank(f_list2)
+    n = len(f_list1)
+    duplicates = (n != len(set(f_list1))) or (len(f_list2) != len(set(f_list2)))
+    if duplicates:
+        return pcc(r1, r2)
+    else:
+        d2 = 0
+        for x, y in zip(r1, r2):
+            d2 += (x - y)**2
+        return 1 - 6 * d2 / n / (n**2 - 1)
 
 
