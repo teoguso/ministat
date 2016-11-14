@@ -1,5 +1,17 @@
 # from .stat_functions import pcc, stddev, mean
-import stat_functions
+from stat_funcs import pcc, stddev, mean
+
+
+def main():
+    n = 5
+    math, stat = [], []
+    for _ in range(n):
+        a, b = input().strip().split()
+        math.append(int(a))
+        stat.append(int(b))
+    x_given = 80
+    print("{:.3f}".format(predict(x_given, math, stat)))
+
 
 def coef_b(xlist, ylist):
     """
@@ -23,7 +35,11 @@ def coef_a(xlist, ylist):
     return mean(ylist) - coef_b(xlist, ylist) * mean(xlist)
 
 
-def predict(xlist, ylist):
-    return coef_a(xlist, ylist) + coef_b(xlist, ylist) * xlist
+def predict(x_given, xlist, ylist):
+    return coef_a(xlist, ylist) + coef_b(xlist, ylist) * x_given
+
+
+if __name__ == "__main__":
+    main()
 
 

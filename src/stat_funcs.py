@@ -32,7 +32,7 @@ def stddev(f_list):
     :param f_list:
     :return:
     """
-    return sqrt(variance(f_list))
+    return sqrt(var(f_list))
 
 
 def cov(f_list1, f_list2):
@@ -75,8 +75,8 @@ def rank(f_list, unique=False):
         return rank(f_list, unique=True)
     else:
         n = len(f_list)
-        ivec = rank(a, unique=True)
-        svec = [a[irank] for irank in ivec]
+        ivec = rank(f_list, unique=True)
+        svec = [f_list[irank] for irank in ivec]
         sumranks = 0
         dupcount = 0
         newlist = [0] * n
