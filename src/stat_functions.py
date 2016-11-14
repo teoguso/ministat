@@ -111,3 +111,9 @@ def srcc(f_list1, f_list2):
         return 1 - 6 * d2 / n / (n**2 - 1)
 
 
+def main():
+    pass
+
+
+if __name__ == "__main__":
+    main()
