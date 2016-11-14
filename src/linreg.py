@@ -3,10 +3,11 @@ from stat_funcs import pcc, stddev, mean
 
 
 def main():
+    from sys import stdin
     n = 5
     math, stat = [], []
-    for _ in range(n):
-        a, b = input().strip().split()
+    for line in stdin:
+        a, b = line.strip().split()
         math.append(int(a))
         stat.append(int(b))
     x_given = 80
