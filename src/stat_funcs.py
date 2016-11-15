@@ -1,4 +1,4 @@
-from math import sqrt, erf
+from math import sqrt
 
 
 def mean(f_list):

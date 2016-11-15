@@ -1,18 +1,23 @@
-# from .stat_functions import pcc, stddev, mean
 from stat_funcs import pcc, stddev, mean
 
 
 def main():
     from sys import stdin
     n = 5
-    math, stat = [], []
+    x, y = [], []
     for line in stdin:
-        a, b = line.strip().split()
-        math.append(int(a))
-        stat.append(int(b))
+        try:
+            a, b = line.strip().split()
+        except:
+            break
+        x.append(int(a))
+        y.append(int(b))
     x_given = 80
-    print("{:.3f}".format(predict(x_given, math, stat)))
+    print("{:.3f}".format(predict_single(x_given, x, y)))
 
+# def predict(mat1, )
+
+from sklearn import linear_model
 
 def coef_b(xlist, ylist):
     """
@@ -36,7 +41,7 @@ def coef_a(xlist, ylist):
     return mean(ylist) - coef_b(xlist, ylist) * mean(xlist)
 
 
-def predict(x_given, xlist, ylist):
+def predict_single(x_given, xlist, ylist):
     return coef_a(xlist, ylist) + coef_b(xlist, ylist) * x_given
 
 
